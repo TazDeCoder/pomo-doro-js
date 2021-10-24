@@ -16,5 +16,38 @@
     />
     <title>Pomodoro</title>
   </head>
-  <body></body>
+  <body>
+    <!-- Top Navigation Bar -->
+    <header class="header">
+      <nav class="header__nav nav">
+        <div class="nav__item timer">
+          <p class="timer__label" id="work--label">Work</p>
+          <input
+            type="number"
+            min="1"
+            class="timer__input timer__input--work"
+          />
+        </div>
+        <div class="nav__item timer">
+          <p class="timer__label" id="break--label">Break</p>
+          <input
+            type="number"
+            min="1"
+            class="timer__input timer__input--break"
+          />
+        </div>
+        <button class="nav__btn">Start</button>
+      </nav>
+    </header>
+    <main class="main">
+      <div class="container">
+        <h2 class="container__title">Time</h2>
+        <div class="clock">
+          <p class="clock__label clock__label--time">05:01</p>
+          <p class="clock__label clock__label--count">2</p>
+        </div>
+        <button class="container__btn">Stop</button>
+      </div>
+    </main>
+  </body>
 </html>
