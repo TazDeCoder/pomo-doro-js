@@ -2,17 +2,20 @@
 
 ## Description
 
-Get productive! Be able to set interval timer for work and break with full control
+Get productive! Be able to set your own productivity clock with full control!
 
 **Features:**
 
-**_None at the moment, but will be added very soon :)_**
+- **NEW**: Intuitive Design
+- **NEW**: Custom Timer Intervals
 
 **TASK-LIST:**
 
-- [ ] Modern UI
-- [ ] Intuitive Design
-- [ ] Custom Intervals for Breaks and Work Times
+- [ ] Modern GUI
+- [x] Intuitive Design
+- [x] Custom Timer Intervals
+- [ ] Reverse-Countdown
+- [ ] Auto/Manual Timer
 
 ## Installation
 
