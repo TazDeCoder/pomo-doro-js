@@ -2,15 +2,15 @@
 
 // Selecting HTML elemenets
 // Inputs
-const inputWorkTime = document.querySelector(".timer__input--work");
-const inputBreakTime = document.querySelector(".timer__input--break");
+const inputWorkTime = document.querySelector("#input--work");
+const inputBreakTime = document.querySelector("#input--break");
 // Buttons
-const btnStart = document.querySelector(".nav__btn");
-const btnStop = document.querySelector(".container__btn");
+const btnStart = document.querySelector("#btn--start");
+const btnStop = document.querySelector("#btn--stop");
 // Labels
-const labelContainer = document.querySelector(".container__title");
-const labelTimer = document.querySelector(".clock__label--time");
-const labelCounter = document.querySelector(".clock__label--count");
+const labelContainer = document.querySelector(".container__label");
+const labelTimer = document.querySelector("#label--timer");
+const labelCounter = document.querySelector("#label--counter");
 
 // Initialise global variables
 let clockTimer, workTime, breakTime, currCounter, isWork;
@@ -26,7 +26,6 @@ function init() {
   // Clean-up Ui
   labelContainer.textContent = "...";
   labelTimer.textContent = "00:00";
-  labelCounter.textContent = "0";
 }
 
 function updateClock(time) {
@@ -53,8 +52,8 @@ function updateClock(time) {
 
 // Event Handlers
 btnStart.addEventListener("click", function () {
-  workTime = +inputWorkTime?.value * 60;
-  breakTime = +inputBreakTime?.value * 60;
+  workTime = +inputWorkTime.value * 60;
+  breakTime = +inputBreakTime.value * 60;
   if (clockTimer) clearInterval(clockTimer);
   clockTimer = updateClock(workTime);
   labelContainer.textContent = "Work";

@@ -48,12 +48,6 @@ iframe {
   padding: 5px;
   font-size: 1rem;
   background-color: var(--alternate-background-color);
-  /* visibility: hidden; */
-}
-.header__nav {
-  display: inline-flex;
-  justify-content: space-around;
-  align-items: center;
 }
 
 /*
@@ -63,7 +57,14 @@ iframe {
  *
  */
 
-.nav__item {
+.nav {
+  width: 90%;
+  display: inline-flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.nav div {
   width: 60%;
 }
 .nav__btn {
@@ -109,6 +110,13 @@ iframe {
   height: 100%;
   padding-top: 36px;
 }
+
+/*
+ *
+ * Container
+ *
+ *
+ */
 .container {
   position: relative;
   width: 90%;
@@ -119,7 +127,7 @@ iframe {
   border-radius: 5px;
   background-color: var(--main-background-color);
 }
-.container__title {
+.container__label {
   width: 90%;
   padding: 2px;
   margin: 0 auto;
@@ -142,8 +150,8 @@ iframe {
 
 /*
  * 
- * Clock
  * 
+ * Clock
  *
  */
 
@@ -161,17 +169,16 @@ iframe {
   font-size: 2.4em;
   font-weight: 500;
   text-align: center;
+  background-color: #cfcfcf;
 }
-.clock__label--time {
+#label--timer {
   width: 50%;
   margin: 90px auto;
   border-radius: 5px;
-  background-color: #cfcfcf;
 }
-.clock__label--count {
+#label--counter {
   width: 20%;
   padding: 5px;
   margin: -60px auto;
   border-radius: 50%;
-  background-color: #cfcfcf;
 }

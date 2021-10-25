@@ -19,34 +19,38 @@
   <body>
     <!-- Top Navigation Bar -->
     <header class="header">
-      <nav class="header__nav nav">
-        <div class="nav__item timer">
-          <p class="timer__label" id="work--label">Work</p>
+      <nav class="nav">
+        <div class="timer">
+          <p class="timer__label">Work</p>
           <input
             type="number"
             min="1"
-            class="timer__input timer__input--work"
+            max="999"
+            class="timer__input"
+            id="input--work"
           />
         </div>
-        <div class="nav__item timer">
-          <p class="timer__label" id="break--label">Break</p>
+        <div class="timer">
+          <p class="timer__label">Break</p>
           <input
             type="number"
             min="1"
-            class="timer__input timer__input--break"
+            max="999"
+            class="timer__input"
+            id="input--break"
           />
         </div>
-        <button class="nav__btn">Start</button>
+        <button class="nav__btn" id="btn--start">Start</button>
       </nav>
     </header>
     <main class="main">
       <div class="container">
-        <h2 class="container__title">Time</h2>
+        <p class="container__label">...</p>
         <div class="clock">
-          <p class="clock__label clock__label--time">05:01</p>
-          <p class="clock__label clock__label--count">2</p>
+          <p class="clock__label clock__label" id="label--timer">00:00</p>
+          <p class="clock__label clock__label" id="label--counter">0</p>
         </div>
-        <button class="container__btn">Stop</button>
+        <button class="container__btn" id="btn--stop">Stop</button>
       </div>
     </main>
     <script src="./app.js"></script>
