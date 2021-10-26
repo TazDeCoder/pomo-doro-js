@@ -92,6 +92,13 @@ iframe {
     height: 100%;
     font-size: 1.5em;
   }
+  .nav div {
+    width: 100%;
+  }
+  .nav div * {
+    display: inline-block;
+    width: 40%;
+  }
   .nav__btn {
     margin: 12px;
   }
@@ -221,13 +228,27 @@ iframe {
 
 @media only screen and (min-width: 400px) {
   .clock {
-    width: 290px;
+    width: 300px;
     height: 60%;
   }
   #label--timer {
     margin: 90px auto;
   }
   #label--counter {
+    width: 20%;
+    padding: 12px;
     margin: -60px auto;
+  }
+}
+@media only screen and (min-width: 995px) {
+  .clock {
+    width: 400px;
+    height: 70%;
+  }
+  #label--timer {
+    margin: 150px auto;
+  }
+  #label--counter {
+    margin: -70px auto;
   }
 }
