@@ -14,6 +14,9 @@ const btnStop = document.querySelector(".container__btn--stop");
 const labelContainer = document.querySelector(".container__label");
 const labelTimer = document.querySelector(".clock__label--timer");
 const labelCounter = document.querySelector(".clock__label--counter");
+// Parents
+const header = document.querySelector(".header");
+const main = document.querySelector(".main");
 
 ////////////////////////////////////////////////
 ////// Global variables
@@ -77,9 +80,11 @@ function updateClock(time) {
 btnStart.addEventListener("click", function () {
   pomodoro.intervals.work = +inputWorkTime.value * 60;
   pomodoro.intervals.break = +inputBreakTime.value * 60;
+  if (!pomodoro.intervals.work || !pomodoro.intervals.break) return;
   if (countDownTimer) clearInterval(countDownTimer);
   countDownTimer = updateClock(pomodoro.intervals.work);
   labelContainer.textContent = "Work";
+  header.classList.add("header--hidden");
 });
 
 btnStop.addEventListener("click", function () {
@@ -87,9 +92,13 @@ btnStop.addEventListener("click", function () {
   init();
 });
 
-// TEST DATA
-pomodoro.intervals.work = 0.05 * 60;
-pomodoro.intervals.break = 0.05 * 60;
-if (countDownTimer) clearInterval(countDownTimer);
-countDownTimer = updateClock(pomodoro.intervals.work);
-labelContainer.textContent = "Work";
+window.addEventListener("resize", function () {
+  if (!header.classList.contains("header--hidden")) return;
+  if (window.screen.width === window.innerWidth)
+    return main.classList.add("main--expand");
+  const styles = window.getComputedStyle(main);
+  const styleWidth = parseInt(styles.getPropertyValue("width"));
+  console.log(styleWidth);
+  if (styleWidth >= 758) return main.classList.add("main--expand");
+  main.classList.remove("main--expand");
+});
