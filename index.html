@@ -17,7 +17,7 @@
     <title>Pomodoro</title>
   </head>
   <body>
-    <!-- Top Navigation Bar -->
+    <!-- Navigation Bar -->
     <header class="header">
       <nav class="nav">
         <div class="timer">
@@ -26,8 +26,7 @@
             type="number"
             min="1"
             max="999"
-            class="timer__input"
-            id="input--work"
+            class="timer__input timer__input--work"
           />
         </div>
         <div class="timer">
@@ -36,21 +35,20 @@
             type="number"
             min="1"
             max="999"
-            class="timer__input"
-            id="input--break"
+            class="timer__input timer__input--break"
           />
         </div>
-        <button class="nav__btn" id="btn--start">Start</button>
+        <button class="nav__btn nav__btn--start">Start</button>
       </nav>
     </header>
     <main class="main">
       <div class="container">
         <p class="container__label">...</p>
         <div class="clock">
-          <p class="clock__label clock__label" id="label--timer">00:00</p>
-          <p class="clock__label clock__label" id="label--counter">0</p>
+          <p class="clock__label clock__label clock__label--timer">00:00</p>
+          <p class="clock__label clock__label clock__label--counter">0</p>
         </div>
-        <button class="container__btn" id="btn--stop">Stop</button>
+        <button class="container__btn container__btn--stop">Stop</button>
       </div>
     </main>
     <script src="./app.js"></script>

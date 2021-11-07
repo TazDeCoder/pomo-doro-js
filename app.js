@@ -5,15 +5,15 @@
 ///////////////////////////////////////////////
 
 // Inputs
-const inputWorkTime = document.querySelector("#input--work");
-const inputBreakTime = document.querySelector("#input--break");
+const inputWorkTime = document.querySelector(".timer__input--work");
+const inputBreakTime = document.querySelector(".timer__input--break");
 // Buttons
-const btnStart = document.querySelector("#btn--start");
-const btnStop = document.querySelector("#btn--stop");
+const btnStart = document.querySelector(".nav__btn--start");
+const btnStop = document.querySelector(".container__btn--stop");
 // Labels
 const labelContainer = document.querySelector(".container__label");
-const labelTimer = document.querySelector("#label--timer");
-const labelCounter = document.querySelector("#label--counter");
+const labelTimer = document.querySelector(".clock__label--timer");
+const labelCounter = document.querySelector(".clock__label--counter");
 
 ////////////////////////////////////////////////
 ////// Global variables

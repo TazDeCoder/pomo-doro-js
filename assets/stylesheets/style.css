@@ -14,7 +14,7 @@ html {
   font-size: 16px;
 }
 body {
-  background-color: rgb(30, 30, 32);
+  background-color: var(--color-charcoal);
 }
 nav,
 button,
@@ -30,10 +30,14 @@ iframe {
   max-width: 100%;
   height: auto;
 }
+/* Custom CSS properties */
 :root {
-  --main-background-color: rgb(10, 110, 117);
-  --alternate-background-color: rgb(68, 41, 68);
+  --color-charcoal: #1e1e20;
+  --color-cream: #cfcfcf;
+  --color-teal: #0a6e75;
+  --color-purple: #442944;
 }
+
 /* Content */
 
 /*
@@ -47,7 +51,7 @@ iframe {
   width: 100%;
   padding: 5px;
   font-size: 1rem;
-  background-color: var(--alternate-background-color);
+  background-color: var(--color-purple);
 }
 
 @media only screen and (min-width: 760px) {
@@ -72,16 +76,13 @@ iframe {
   align-items: center;
   font-size: 1em;
 }
-.nav div {
-  width: 60%;
-}
 .nav__btn {
   width: max(30%, 120px);
   font-size: 1.4em;
-  color: #fff;
-  border: 1px solid #fff;
+  color: white;
+  border: 1px solid white;
   border-radius: 5px;
-  background-color: rgb(30, 30, 32);
+  background-color: var(--color-charcoal);
 }
 
 @media only screen and (min-width: 760px) {
@@ -91,13 +92,6 @@ iframe {
     width: 100%;
     height: 100%;
     font-size: 1.5em;
-  }
-  .nav div {
-    width: 100%;
-  }
-  .nav div * {
-    display: inline-block;
-    width: 40%;
   }
   .nav__btn {
     margin: 12px;
@@ -112,19 +106,30 @@ iframe {
  */
 
 .timer {
+  width: 60%;
   text-align: center;
 }
 .timer__label {
   font-size: 1.3em;
-  color: #fff;
+  color: white;
 }
 .timer__input {
   max-width: 120px;
   width: 70%;
   margin: 5px 0;
   text-align: center;
-  border: 1px solid #000;
+  border: 1px solid black;
   border-radius: 5px;
+}
+
+@media only screen and (min-width: 760px) {
+  .timer {
+    width: 100%;
+  }
+  .timer * {
+    display: inline-block;
+    width: 40%;
+  }
 }
 
 /*
@@ -161,7 +166,7 @@ iframe {
   margin: 0 auto;
   font-size: 1rem;
   border-radius: 5px;
-  background-color: var(--main-background-color);
+  background-color: var(--color-teal);
 }
 .container__label {
   max-width: 357px;
@@ -172,7 +177,7 @@ iframe {
   font-weight: 600;
   text-align: center;
   border-radius: 3px;
-  background-color: #fff;
+  background-color: white;
 }
 .container__btn {
   position: absolute;
@@ -182,7 +187,7 @@ iframe {
   width: 20%;
   padding: 5px;
   border-radius: 50%;
-  background-color: #cfcfcf;
+  background-color: var(--color-cream);
 }
 
 @media only screen and (min-width: 400px) {
@@ -206,20 +211,20 @@ iframe {
   width: 195px;
   height: 40%;
   border-radius: 50%;
-  background-color: #fff;
+  background-color: white;
 }
 .clock__label {
   font-size: 2.4em;
   font-weight: 500;
   text-align: center;
-  background-color: #cfcfcf;
+  background-color: var(--color-cream);
 }
-#label--timer {
+.clock__label--timer {
   width: 50%;
   margin: 60px auto;
   border-radius: 5px;
 }
-#label--counter {
+.clock__label--counter {
   width: 20%;
   padding: 5px;
   margin: -30px auto;
@@ -231,10 +236,10 @@ iframe {
     width: 300px;
     height: 60%;
   }
-  #label--timer {
+  .clock__label--timer {
     margin: 90px auto;
   }
-  #label--counter {
+  .clock__label--counter {
     width: 20%;
     padding: 12px;
     margin: -60px auto;
@@ -245,10 +250,10 @@ iframe {
     width: 400px;
     height: 70%;
   }
-  #label--timer {
+  .clock__label--timer {
     margin: 150px auto;
   }
-  #label--counter {
+  .clock__label--counter {
     margin: -70px auto;
   }
 }
