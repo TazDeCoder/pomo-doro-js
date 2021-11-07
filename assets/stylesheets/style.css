@@ -33,10 +33,12 @@ iframe {
 }
 /* Custom CSS properties */
 :root {
-  --color-charcoal: #1e1e20;
   --color-cream: #cfcfcf;
   --color-teal: #0a6e75;
-  --color-purple: #442944;
+  --color-charcoal: #1e1e20;
+  --color-darkgrey: #333336;
+  --color-darkcream: #acacac;
+  --color-darkpurple: #442944;
 }
 
 /* Content */
@@ -56,7 +58,8 @@ iframe {
   height: 4rem;
   padding: 5px;
   font-size: 1rem;
-  background-color: var(--color-purple);
+  background-color: var(--color-darkpurple);
+  transition: opacity 700ms;
   z-index: 10;
 }
 /* Class modifiers */
@@ -94,6 +97,9 @@ iframe {
   color: white;
   border: 1px solid white;
   border-radius: 5px;
+  background-color: var(--color-darkgrey);
+}
+.nav__btn:hover {
   background-color: var(--color-charcoal);
 }
 
@@ -152,19 +158,20 @@ iframe {
  */
 
 .main {
-  width: 100%;
+  width: min(100%, 815px);
   height: 100%;
   padding-top: 5rem;
 }
 /* Class modifiers */
 .main--expand {
-  transform: translateX(20%) scaleX(125%) scaleY(110%);
+  transform: scale(125%, 110%);
   transition: all 3s;
 }
 
 @media only screen and (min-width: 820px) {
   .main {
-    width: max(70%, 758px);
+    width: max(90%, 815px);
+    margin: 0 auto;
   }
 }
 
@@ -176,9 +183,11 @@ iframe {
  */
 
 .container {
-  position: relative;
   width: 90%;
+  min-height: 483px;
   height: 90%;
+  display: flex;
+  flex-direction: column;
   padding: 12px 0;
   margin: 0 auto;
   font-size: 1rem;
@@ -197,18 +206,23 @@ iframe {
   background-color: white;
 }
 .container__btn {
-  position: absolute;
-  top: 90%;
-  left: 50%;
-  transform: translate(-50%, -30%);
+  display: block;
   width: 20%;
   padding: 5px;
+  margin: 0 auto;
+  font-weight: 600;
+  border: 1px solid black;
   border-radius: 50%;
   background-color: var(--color-cream);
 }
 
-@media only screen and (min-width: 400px) {
+.container__btn:hover {
+  background-color: var(--color-darkcream);
+}
+
+@media only screen and (min-width: 820px) {
   .container {
+    min-width: 820px;
     width: 70%;
     margin: 0 auto;
   }
@@ -222,12 +236,9 @@ iframe {
  */
 
 .clock {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 195px;
-  height: 40%;
+  width: 300px;
+  height: 70%;
+  margin: 50px auto;
   border-radius: 50%;
   background-color: white;
 }
@@ -239,27 +250,12 @@ iframe {
 }
 .clock__label--timer {
   width: 50%;
-  margin: 60px auto;
+  margin: 7rem auto;
   border-radius: 5px;
 }
 .clock__label--counter {
   width: 20%;
   padding: 5px;
-  margin: -30px auto;
+  margin: -3rem auto;
   border-radius: 50%;
-}
-
-@media only screen and (min-width: 400px) {
-  .clock {
-    width: 300px;
-    height: 60%;
-  }
-  .clock__label--timer {
-    margin: 90px auto;
-  }
-  .clock__label--counter {
-    width: 20%;
-    padding: 12px;
-    margin: -60px auto;
-  }
 }

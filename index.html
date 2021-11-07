@@ -23,30 +23,31 @@
         <div class="timer">
           <p class="timer__label">Work</p>
           <input
+            class="timer__input timer__input--work"
             type="number"
             min="1"
             max="999"
-            class="timer__input timer__input--work"
           />
         </div>
         <div class="timer">
           <p class="timer__label">Break</p>
           <input
+            class="timer__input timer__input--break"
             type="number"
             min="1"
             max="999"
-            class="timer__input timer__input--break"
           />
         </div>
         <button class="nav__btn nav__btn--start">Start</button>
       </nav>
     </header>
+    <!-- Clock -->
     <main class="main">
       <div class="container">
         <p class="container__label">...</p>
         <div class="clock">
-          <p class="clock__label clock__label clock__label--timer">00:00</p>
-          <p class="clock__label clock__label clock__label--counter">0</p>
+          <p class="clock__label clock__label--timer">00:00</p>
+          <p class="clock__label clock__label--counter">0</p>
         </div>
         <button class="container__btn container__btn--stop">Stop</button>
       </div>

@@ -83,7 +83,7 @@ function updateClock(time) {
 function fadeHeader(entries) {
   const [entry] = entries;
   if (
-    entry.contentRect.width >= 758 ||
+    entry.contentRect.width >= 820 ||
     window.screen.width === window.innerWidth
   )
     return main.classList.add("main--expand");
