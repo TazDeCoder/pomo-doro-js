@@ -24,6 +24,8 @@ const main = document.querySelector(".main");
 
 let countDownTimer, isWork;
 
+const mainOberserver = new ResizeObserver(fadeHeader);
+
 const pomodoro = {
   counter: 0,
   intervals: {
@@ -43,6 +45,7 @@ function init() {
   // Clean-up Ui
   labelContainer.textContent = "...";
   labelTimer.textContent = "00:00";
+  inputWorkTime.value = inputBreakTime.value = "";
 }
 
 ////////////////////////////////////////////////
@@ -77,6 +80,16 @@ function updateClock(time) {
 ////// Event Handlers
 ///////////////////////////////////////////////
 
+function fadeHeader(entries) {
+  const [entry] = entries;
+  if (
+    entry.contentRect.width >= 758 ||
+    window.screen.width === window.innerWidth
+  )
+    return main.classList.add("main--expand");
+  main.classList.remove("main--expand");
+}
+
 btnStart.addEventListener("click", function () {
   pomodoro.intervals.work = +inputWorkTime.value * 60;
   pomodoro.intervals.break = +inputBreakTime.value * 60;
@@ -85,20 +98,13 @@ btnStart.addEventListener("click", function () {
   countDownTimer = updateClock(pomodoro.intervals.work);
   labelContainer.textContent = "Work";
   header.classList.add("header--hidden");
+  mainOberserver.observe(main);
 });
 
 btnStop.addEventListener("click", function () {
   if (countDownTimer) clearInterval(countDownTimer);
-  init();
-});
-
-window.addEventListener("resize", function () {
-  if (!header.classList.contains("header--hidden")) return;
-  if (window.screen.width === window.innerWidth)
-    return main.classList.add("main--expand");
-  const styles = window.getComputedStyle(main);
-  const styleWidth = parseInt(styles.getPropertyValue("width"));
-  console.log(styleWidth);
-  if (styleWidth >= 758) return main.classList.add("main--expand");
+  mainOberserver.unobserve(main);
+  header.classList.remove("header--hidden");
   main.classList.remove("main--expand");
+  init();
 });
