@@ -64,7 +64,7 @@ function updateClock(time) {
     labelTimer.textContent = `${min}:${sec}`;
     if (
       (!isReverse && startTime === -1) ||
-      (isReverse && !isWork && startTime <= -1) ||
+      (isReverse && !isWork && startTime === -1) ||
       (isReverse && isWork && startTime === finishTime + 1)
     ) {
       if (isWork) {
@@ -101,16 +101,16 @@ function fadeNav(entries) {
 }
 
 btnStart.addEventListener("click", function () {
-  if (!+inputWork.value || !+inputBreak.value) return;
+  if (!(+inputWork.value && +inputBreak.value)) return;
   pomodoro.intervals.work = +inputWork.value * 60;
   pomodoro.intervals.break = +inputBreak.value * 60;
   isReverse = inputReverse.checked ? true : false;
   isManual = inputManual.checked ? true : false;
   if (countDownTimer) clearInterval(countDownTimer);
   countDownTimer = updateClock(pomodoro.intervals.work);
+  mainOberserver.observe(main);
   labelContainer.textContent = "Work";
   nav.classList.add("nav--hidden");
-  mainOberserver.observe(main);
 });
 
 btnStop.addEventListener("click", function () {
