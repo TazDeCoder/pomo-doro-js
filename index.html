@@ -18,8 +18,8 @@
   </head>
   <body>
     <!-- Navigation Bar -->
-    <header class="header">
-      <nav class="nav">
+    <nav class="nav">
+      <div class="nav__container">
         <div class="timer">
           <p class="timer__label">Work</p>
           <input
@@ -38,9 +38,13 @@
             max="999"
           />
         </div>
+        <div class="timer">
+          <p class="timer__label">Reverse</p>
+          <input class="timer__input timer__input--reverse" type="checkbox" />
+        </div>
         <button class="nav__btn nav__btn--start">Start</button>
-      </nav>
-    </header>
+      </div>
+    </nav>
     <!-- Clock -->
     <main class="main">
       <div class="container">

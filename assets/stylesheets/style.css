@@ -44,13 +44,13 @@ iframe {
 /* Content */
 
 /*
- * Header
+ * Nav
  *
  *
  *
  */
 
-.header {
+.nav {
   position: absolute;
   top: 0;
   right: 0;
@@ -63,14 +63,14 @@ iframe {
   z-index: 10;
 }
 /* Class modifiers */
-.header--hidden {
+.nav--hidden {
   opacity: 0;
   transform: translateX(100%);
   transition: all 3s;
 }
 
 @media only screen and (min-width: 820px) {
-  .header {
+  .nav {
     display: inline-block;
     width: 12rem;
     height: 100%;
@@ -79,12 +79,12 @@ iframe {
 
 /*
  * 
- * Nav
+ * Form
  * 
  *
  */
 
-.nav {
+.nav__container {
   width: 90%;
   display: inline-flex;
   justify-content: space-around;
@@ -104,7 +104,7 @@ iframe {
 }
 
 @media only screen and (min-width: 820px) {
-  .nav {
+  .nav__container {
     flex-direction: column;
     justify-content: center;
     width: 100%;

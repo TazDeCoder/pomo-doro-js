@@ -7,6 +7,7 @@
 // Inputs
 const inputWorkTime = document.querySelector(".timer__input--work");
 const inputBreakTime = document.querySelector(".timer__input--break");
+const inputReverse = document.querySelector(".timer__input--reverse");
 // Buttons
 const btnStart = document.querySelector(".nav__btn--start");
 const btnStop = document.querySelector(".container__btn--stop");
@@ -15,16 +16,16 @@ const labelContainer = document.querySelector(".container__label");
 const labelTimer = document.querySelector(".clock__label--timer");
 const labelCounter = document.querySelector(".clock__label--counter");
 // Parents
-const header = document.querySelector(".header");
+const nav = document.querySelector(".nav");
 const main = document.querySelector(".main");
 
 ////////////////////////////////////////////////
 ////// Global variables
 ///////////////////////////////////////////////
 
-let countDownTimer, isWork;
+let countDownTimer, isWork, isReverse;
 
-const mainOberserver = new ResizeObserver(fadeHeader);
+const mainOberserver = new ResizeObserver(fadeNav);
 
 const pomodoro = {
   counter: 0,
@@ -53,11 +54,16 @@ function init() {
 ///////////////////////////////////////////////
 
 function updateClock(time) {
+  time = isReverse && isWork ? 0 : time;
   const tick = function () {
     const min = String(Math.trunc(time / 60)).padStart(2, 0);
     const sec = String(Math.trunc(time % 60)).padStart(2, 0);
     labelTimer.textContent = `${min}:${sec}`;
-    if (time === -1) {
+    if (
+      (!isReverse && time === -1) ||
+      (isReverse && !isWork && time <= -1) ||
+      (isReverse && isWork && time === 61)
+    ) {
       if (isWork) {
         ++pomodoro.counter;
         labelCounter.textContent = pomodoro.counter;
@@ -69,7 +75,7 @@ function updateClock(time) {
         ? updateClock(pomodoro.intervals.work)
         : updateClock(pomodoro.intervals.break);
     }
-    --time;
+    time = isReverse && isWork ? ++time : --time;
   };
   tick();
   const timer = setInterval(tick, 1000);
@@ -80,7 +86,7 @@ function updateClock(time) {
 ////// Event Handlers
 ///////////////////////////////////////////////
 
-function fadeHeader(entries) {
+function fadeNav(entries) {
   const [entry] = entries;
   if (
     entry.contentRect.width >= 820 ||
@@ -91,20 +97,21 @@ function fadeHeader(entries) {
 }
 
 btnStart.addEventListener("click", function () {
+  if (!+inputWorkTime.value || !+inputBreakTime.value) return;
   pomodoro.intervals.work = +inputWorkTime.value * 60;
   pomodoro.intervals.break = +inputBreakTime.value * 60;
-  if (!pomodoro.intervals.work || !pomodoro.intervals.break) return;
+  isReverse = inputReverse.value ? true : false;
   if (countDownTimer) clearInterval(countDownTimer);
   countDownTimer = updateClock(pomodoro.intervals.work);
   labelContainer.textContent = "Work";
-  header.classList.add("header--hidden");
+  nav.classList.add("nav--hidden");
   mainOberserver.observe(main);
 });
 
 btnStop.addEventListener("click", function () {
   if (countDownTimer) clearInterval(countDownTimer);
   mainOberserver.unobserve(main);
-  header.classList.remove("header--hidden");
+  nav.classList.remove("nav--hidden");
   main.classList.remove("main--expand");
   init();
 });
