@@ -1,21 +1,30 @@
 # Pomodoro
 
+## Demo Preview
+
+![Demo Preview](/assets/images/demo-preview.png)
+
 ## Description
 
 Get productive! Be able to set your own productivity clock with full control!
 
 **Features:**
 
-- **NEW**: Intuitive Design
-- **NEW**: Custom Timer Intervals
+- Intuitive Design
+- Custom Timer Intervals
+- **NEW**: Modern GUI
+- **NEW**: Reverse-Countdown
+- **NEW**: Auto/Manual Timer
 
 **TASK-LIST:**
 
-- [ ] Modern GUI
+- [x] Modern GUI
 - [x] Intuitive Design
 - [x] Custom Timer Intervals
-- [ ] Reverse-Countdown
-- [ ] Auto/Manual Timer
+- [x] Reverse-Countdown
+- [x] Auto/Manual Timer
+
+**_None at the moment, but feel free to suggest any :)_**
 
 ## Installation
 
