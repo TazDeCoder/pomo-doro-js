@@ -5,9 +5,10 @@
 ///////////////////////////////////////////////
 
 // Inputs
-const inputWorkTime = document.querySelector(".timer__input--work");
-const inputBreakTime = document.querySelector(".timer__input--break");
+const inputWork = document.querySelector(".timer__input--work");
+const inputBreak = document.querySelector(".timer__input--break");
 const inputReverse = document.querySelector(".timer__input--reverse");
+const inputManual = document.querySelector(".timer__input--manual");
 // Buttons
 const btnStart = document.querySelector(".nav__btn--start");
 const btnStop = document.querySelector(".container__btn--stop");
@@ -23,7 +24,7 @@ const main = document.querySelector(".main");
 ////// Global variables
 ///////////////////////////////////////////////
 
-let countDownTimer, isWork, isReverse;
+let countDownTimer, isWork, isReverse, isManual;
 
 const mainOberserver = new ResizeObserver(fadeNav);
 
@@ -46,7 +47,7 @@ function init() {
   // Clean-up Ui
   labelContainer.textContent = "...";
   labelTimer.textContent = "00:00";
-  inputWorkTime.value = inputBreakTime.value = "";
+  inputWork.value = inputBreak.value = "";
 }
 
 ////////////////////////////////////////////////
@@ -54,20 +55,23 @@ function init() {
 ///////////////////////////////////////////////
 
 function updateClock(time) {
-  time = isReverse && isWork ? 0 : time;
+  let finishTime, startTime;
+  if (isReverse) finishTime = time;
+  startTime = isReverse && isWork ? 0 : time;
   const tick = function () {
-    const min = String(Math.trunc(time / 60)).padStart(2, 0);
-    const sec = String(Math.trunc(time % 60)).padStart(2, 0);
+    const min = String(Math.trunc(startTime / 60)).padStart(2, 0);
+    const sec = String(Math.trunc(startTime % 60)).padStart(2, 0);
     labelTimer.textContent = `${min}:${sec}`;
     if (
-      (!isReverse && time === -1) ||
-      (isReverse && !isWork && time <= -1) ||
-      (isReverse && isWork && time === 61)
+      (!isReverse && startTime === -1) ||
+      (isReverse && !isWork && startTime <= -1) ||
+      (isReverse && isWork && startTime === finishTime + 1)
     ) {
       if (isWork) {
         ++pomodoro.counter;
         labelCounter.textContent = pomodoro.counter;
       }
+      if (isManual && !isWork) alert(`Are You Ready?`);
       clearInterval(countDownTimer);
       isWork = !isWork;
       labelContainer.textContent = isWork ? "Work" : "Break";
@@ -75,7 +79,7 @@ function updateClock(time) {
         ? updateClock(pomodoro.intervals.work)
         : updateClock(pomodoro.intervals.break);
     }
-    time = isReverse && isWork ? ++time : --time;
+    startTime = isReverse && isWork ? ++startTime : --startTime;
   };
   tick();
   const timer = setInterval(tick, 1000);
@@ -97,10 +101,11 @@ function fadeNav(entries) {
 }
 
 btnStart.addEventListener("click", function () {
-  if (!+inputWorkTime.value || !+inputBreakTime.value) return;
-  pomodoro.intervals.work = +inputWorkTime.value * 60;
-  pomodoro.intervals.break = +inputBreakTime.value * 60;
-  isReverse = inputReverse.value ? true : false;
+  if (!+inputWork.value || !+inputBreak.value) return;
+  pomodoro.intervals.work = +inputWork.value * 60;
+  pomodoro.intervals.break = +inputBreak.value * 60;
+  isReverse = inputReverse.checked ? true : false;
+  isManual = inputManual.checked ? true : false;
   if (countDownTimer) clearInterval(countDownTimer);
   countDownTimer = updateClock(pomodoro.intervals.work);
   labelContainer.textContent = "Work";
