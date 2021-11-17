@@ -19,34 +19,34 @@
   <body>
     <!-- Navigation Bar -->
     <nav class="nav">
-      <div class="nav__container">
-        <div class="timer">
-          <p class="timer__label">Work</p>
+      <form class="form">
+        <div class="form__item form__item--time">
+          <label class="form__label">Work</label>
           <input
-            class="timer__input timer__input--work"
+            class="form__input form__input--work"
             type="number"
             min="1"
             max="999"
           />
         </div>
-        <div class="timer">
-          <p class="timer__label">Break</p>
+        <div class="form__item">
+          <label class="form__label">Break</label>
           <input
-            class="timer__input timer__input--break"
+            class="form__input form__input--break"
             type="number"
             min="1"
             max="999"
           />
         </div>
-        <div class="timer">
-          <p class="timer__label">Reverse</p>
-          <input class="timer__input timer__input--reverse" type="checkbox" />
+        <div class="form__item">
+          <label class="form__label">Reverse</label>
+          <input class="form__input form__input--reverse" type="checkbox" />
         </div>
-        <div class="timer">
-          <p class="timer__label">Manual</p>
-          <input class="timer__input timer__input--manual" type="checkbox" />
+        <div class="form__item">
+          <label class="form__label">Manual</label>
+          <input class="form__input form__input--manual" type="checkbox" />
         </div>
-        <button class="nav__btn nav__btn--start">Start</button>
+        <button class="btn form__btn form__btn--submit">Start Timer <br> ⏳</button>
       </div>
     </nav>
     <!-- Clock -->
@@ -54,10 +54,10 @@
       <div class="container">
         <p class="container__label">...</p>
         <div class="clock">
-          <p class="clock__label clock__label--timer">00:00</p>
+          <p class="clock__label clock__label--timer">00:00</;>
           <p class="clock__label clock__label--counter">0</p>
         </div>
-        <button class="container__btn container__btn--stop">Stop</button>
+        <button class="btn btn--stop-timer">Stop</button>
       </div>
     </main>
     <script src="./app.js"></script>
