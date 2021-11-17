@@ -6,25 +6,21 @@
 
 ## Description
 
-Get productive! Be able to set your own productivity clock with full control!
+Get productive!
+
+Be able to set your own productivity timer they way that suits you!
 
 **Features:**
 
 - Intuitive Design
 - Custom Timer Intervals
-- **NEW**: Modern GUI
-- **NEW**: Reverse-Countdown
-- **NEW**: Auto/Manual Timer
+- Modern GUI
+- Reverse-Countdown
+- Auto/Manual Timer
 
 **TASK-LIST:**
 
-- [x] Modern GUI
-- [x] Intuitive Design
-- [x] Custom Timer Intervals
-- [x] Reverse-Countdown
-- [x] Auto/Manual Timer
-
-**_None at the moment, but feel free to suggest any :)_**
+- [ ] Timer Profiles
 
 ## Installation
 
