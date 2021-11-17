@@ -5,13 +5,13 @@
 ///////////////////////////////////////////////
 
 // Inputs
-const inputWork = document.querySelector(".timer__input--work");
-const inputBreak = document.querySelector(".timer__input--break");
-const inputReverse = document.querySelector(".timer__input--reverse");
-const inputManual = document.querySelector(".timer__input--manual");
+const inputWork = document.querySelector(".form__input--work");
+const inputBreak = document.querySelector(".form__input--break");
+const inputReverse = document.querySelector(".form__input--reverse");
+const inputManual = document.querySelector(".form__input--manual");
 // Buttons
-const btnStart = document.querySelector(".nav__btn--start");
-const btnStop = document.querySelector(".container__btn--stop");
+const btnSubmit = document.querySelector(".form__btn--submit");
+const btnStopTimer = document.querySelector(".btn--stop-timer");
 // Labels
 const labelContainer = document.querySelector(".container__label");
 const labelTimer = document.querySelector(".clock__label--timer");
@@ -100,7 +100,8 @@ function fadeNav(entries) {
   main.classList.remove("main--expand");
 }
 
-btnStart.addEventListener("click", function () {
+btnSubmit.addEventListener("click", function (e) {
+  e.preventDefault();
   if (!(+inputWork.value && +inputBreak.value)) return;
   pomodoro.intervals.work = +inputWork.value * 60;
   pomodoro.intervals.break = +inputBreak.value * 60;
@@ -113,7 +114,7 @@ btnStart.addEventListener("click", function () {
   nav.classList.add("nav--hidden");
 });
 
-btnStop.addEventListener("click", function () {
+btnStopTimer.addEventListener("click", function () {
   if (countDownTimer) clearInterval(countDownTimer);
   mainOberserver.unobserve(main);
   nav.classList.remove("nav--hidden");
