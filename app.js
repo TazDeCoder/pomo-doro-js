@@ -1,7 +1,7 @@
 "use strict";
 
 ////////////////////////////////////////////////
-////// Selecting HTML elements
+////// Selecting HTML Elements
 ///////////////////////////////////////////////
 
 // Inputs
@@ -21,29 +21,64 @@ const nav = document.querySelector(".nav");
 const main = document.querySelector(".main");
 
 ////////////////////////////////////////////////
-////// Global variables
+////// Timer Architecture
 ///////////////////////////////////////////////
 
-let countDownTimer, isWork, isReverse, isManual;
+let countDownTimer;
 
-const mainOberserver = new ResizeObserver(fadeNav);
+class Timer {
+  counter = 0;
 
-const pomodoro = {
-  counter: 0,
-  intervals: {
-    work: 0,
-    break: 0,
-  },
-};
+  constructor(type, mode, intervals) {
+    this.type = type;
+    this.mode = mode;
+    [this.work, this.break] = intervals;
+  }
+
+  updateTimer(time) {
+    let finishTime, startTime;
+    const isReverse = this.type === "reverse" ? true : false;
+    const isManual = this.mode === "manual" ? true : false;
+    const isWork = this.work === +time ? true : false;
+    if (isReverse) finishTime = +time;
+    startTime = isReverse && isWork ? 0 : +time;
+    const tick = function () {
+      const min = String(Math.trunc(startTime / 60)).padStart(2, 0);
+      const sec = String(Math.trunc(startTime % 60)).padStart(2, 0);
+      labelTimer.textContent = `${min}:${sec}`;
+      if (
+        (!isReverse && startTime === -1) ||
+        (isReverse && !isWork && startTime === -1) ||
+        (isReverse && isWork && startTime === finishTime)
+      ) {
+        if (isWork) {
+          ++this.counter;
+          labelCounter.textContent = this.counter;
+        }
+        if (isManual && !isWork) alert(`Are You Ready?`);
+        clearInterval(countDownTimer);
+        labelContainer.textContent = !isWork ? "Work" : "Break";
+        countDownTimer = !isWork
+          ? this.updateTimer(this.work)
+          : this.updateTimer(this.break);
+      }
+      startTime = isReverse && isWork ? ++startTime : --startTime;
+    };
+    tick();
+    const timer = setInterval(tick.bind(this), 1000);
+    return timer;
+  }
+}
+
+////////////////////////////////////////////////
+////// App UI Setup
+///////////////////////////////////////////////
 
 (() => init())();
 
 function init() {
   // Reset conditions
-  pomodoro.counter = 0;
-  pomodoro.intervals.work = 0;
-  pomodoro.intervals.break = 0;
-  isWork = true;
+
   // Clean-up Ui
   labelContainer.textContent = "...";
   labelTimer.textContent = "00:00";
@@ -51,44 +86,10 @@ function init() {
 }
 
 ////////////////////////////////////////////////
-////// App Logic
-///////////////////////////////////////////////
-
-function updateClock(time) {
-  let finishTime, startTime;
-  if (isReverse) finishTime = time;
-  startTime = isReverse && isWork ? 0 : time;
-  const tick = function () {
-    const min = String(Math.trunc(startTime / 60)).padStart(2, 0);
-    const sec = String(Math.trunc(startTime % 60)).padStart(2, 0);
-    labelTimer.textContent = `${min}:${sec}`;
-    if (
-      (!isReverse && startTime === -1) ||
-      (isReverse && !isWork && startTime === -1) ||
-      (isReverse && isWork && startTime === finishTime + 1)
-    ) {
-      if (isWork) {
-        ++pomodoro.counter;
-        labelCounter.textContent = pomodoro.counter;
-      }
-      if (isManual && !isWork) alert(`Are You Ready?`);
-      clearInterval(countDownTimer);
-      isWork = !isWork;
-      labelContainer.textContent = isWork ? "Work" : "Break";
-      countDownTimer = isWork
-        ? updateClock(pomodoro.intervals.work)
-        : updateClock(pomodoro.intervals.break);
-    }
-    startTime = isReverse && isWork ? ++startTime : --startTime;
-  };
-  tick();
-  const timer = setInterval(tick, 1000);
-  return timer;
-}
-
-////////////////////////////////////////////////
 ////// Event Handlers
 ///////////////////////////////////////////////
+
+const mainOberserver = new ResizeObserver(fadeNav);
 
 function fadeNav(entries) {
   const [entry] = entries;
@@ -102,13 +103,12 @@ function fadeNav(entries) {
 
 btnSubmit.addEventListener("click", function (e) {
   e.preventDefault();
-  if (!(+inputWork.value && +inputBreak.value)) return;
-  pomodoro.intervals.work = +inputWork.value * 60;
-  pomodoro.intervals.break = +inputBreak.value * 60;
-  isReverse = inputReverse.checked ? true : false;
-  isManual = inputManual.checked ? true : false;
+  const type = inputReverse.checked ? "reverse" : "normal";
+  const mode = inputManual.checked ? "manual" : "auto";
+  const intervals = [inputWork.value, inputBreak.value].map((ipt) => ipt * 60);
+  const timer = new Timer(type, mode, intervals);
   if (countDownTimer) clearInterval(countDownTimer);
-  countDownTimer = updateClock(pomodoro.intervals.work);
+  countDownTimer = timer.updateTimer(timer.work);
   mainOberserver.observe(main);
   labelContainer.textContent = "Work";
   nav.classList.add("nav--hidden");
