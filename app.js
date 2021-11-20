@@ -24,7 +24,7 @@ const main = document.querySelector(".main");
 ////// Timer Architecture
 ///////////////////////////////////////////////
 
-let countDownTimer;
+let clockTimer;
 
 class Timer {
   counter = 0;
@@ -56,9 +56,9 @@ class Timer {
           labelCounter.textContent = this.counter;
         }
         if (isManual && !isWork) alert(`Are You Ready?`);
-        clearInterval(countDownTimer);
+        clearInterval(clockTimer);
         labelContainer.textContent = !isWork ? "Work" : "Break";
-        countDownTimer = !isWork
+        clockTimer = !isWork
           ? this.updateTimer(this.work)
           : this.updateTimer(this.break);
       }
@@ -71,53 +71,53 @@ class Timer {
 }
 
 ////////////////////////////////////////////////
-////// App UI Setup
+////// App Architecture
 ///////////////////////////////////////////////
 
-(() => init())();
+class App {
+  #mainObserver;
 
-function init() {
-  // Reset conditions
+  constructor() {
+    this.#mainObserver = new ResizeObserver(this._expandMain);
+    btnSubmit.addEventListener("click", this._formSubmit.bind(this));
+    btnStopTimer.addEventListener("click", this.stopClock.bind(this));
+  }
 
-  // Clean-up Ui
-  labelContainer.textContent = "...";
-  labelTimer.textContent = "00:00";
-  inputWork.value = inputBreak.value = "";
+  _expandMain(entries) {
+    const [entry] = entries;
+    if (
+      entry.contentRect.width >= 820 ||
+      window.screen.width === window.innerWidth
+    )
+      main.classList.add("main--expand");
+    else main.classList.remove("main--expand");
+  }
+
+  _formSubmit(e) {
+    e.preventDefault();
+    const type = inputReverse.checked ? "reverse" : "normal";
+    const mode = inputManual.checked ? "manual" : "auto";
+    const intervals = [inputWork.value, inputBreak.value].map(
+      (ipt) => ipt * 60
+    );
+    const timer = new Timer(type, mode, intervals);
+    if (clockTimer) clearInterval(clockTimer);
+    clockTimer = timer.updateTimer(timer.work);
+    labelContainer.textContent = "Work";
+    nav.classList.add("nav--hidden");
+    this.#mainObserver.observe(main);
+  }
+
+  stopClock(e) {
+    e.preventDefault();
+    if (clockTimer) clearInterval(clockTimer);
+    nav.classList.remove("nav--hidden");
+    main.classList.remove("main--expand");
+    this.#mainObserver.unobserve(main);
+    labelContainer.textContent = "...";
+    labelTimer.textContent = "00:00";
+    inputWork.value = inputBreak.value = "";
+  }
 }
 
-////////////////////////////////////////////////
-////// Event Handlers
-///////////////////////////////////////////////
-
-const mainOberserver = new ResizeObserver(fadeNav);
-
-function fadeNav(entries) {
-  const [entry] = entries;
-  if (
-    entry.contentRect.width >= 820 ||
-    window.screen.width === window.innerWidth
-  )
-    return main.classList.add("main--expand");
-  main.classList.remove("main--expand");
-}
-
-btnSubmit.addEventListener("click", function (e) {
-  e.preventDefault();
-  const type = inputReverse.checked ? "reverse" : "normal";
-  const mode = inputManual.checked ? "manual" : "auto";
-  const intervals = [inputWork.value, inputBreak.value].map((ipt) => ipt * 60);
-  const timer = new Timer(type, mode, intervals);
-  if (countDownTimer) clearInterval(countDownTimer);
-  countDownTimer = timer.updateTimer(timer.work);
-  mainOberserver.observe(main);
-  labelContainer.textContent = "Work";
-  nav.classList.add("nav--hidden");
-});
-
-btnStopTimer.addEventListener("click", function () {
-  if (countDownTimer) clearInterval(countDownTimer);
-  mainOberserver.unobserve(main);
-  nav.classList.remove("nav--hidden");
-  main.classList.remove("main--expand");
-  init();
-});
+const app = new App();
