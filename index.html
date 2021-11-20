@@ -14,6 +14,7 @@
       type="text/css"
       href="./assets/stylesheets/style.css"
     />
+    <script defer src="./app.js"></script>
     <title>Pomodoro</title>
   </head>
   <body>
@@ -46,6 +47,14 @@
           <label class="form__label">Manual</label>
           <input class="form__input form__input--manual" type="checkbox" />
         </div>
+        <div class="form__item">
+          <label class="form__label">Profiles</label>
+          <select class="form__select form__select--profiles">
+            <option class="form__option" value="">
+            <option class="form__option" value="short">25/5</>
+            <option class="form__option" value="long">50/10</>
+          </select>
+        </div>
         <button class="btn form__btn form__btn--submit">Start Timer <br> ⏳</button>
       </div>
     </nav>
@@ -60,6 +69,5 @@
         <button class="btn btn--stop-timer">Stop</button>
       </div>
     </main>
-    <script src="./app.js"></script>
   </body>
 </html>
