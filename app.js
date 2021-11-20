@@ -19,6 +19,7 @@ const labelCounter = document.querySelector(".clock__label--counter");
 // Parents
 const nav = document.querySelector(".nav");
 const main = document.querySelector(".main");
+const selectProfiles = document.querySelector(".form__select--profiles");
 
 ////////////////////////////////////////////////
 ////// Timer Architecture
@@ -79,8 +80,9 @@ class App {
 
   constructor() {
     this.#mainObserver = new ResizeObserver(this._expandMain);
-    btnSubmit.addEventListener("click", this._formSubmit.bind(this));
-    btnStopTimer.addEventListener("click", this.stopClock.bind(this));
+    selectProfiles.addEventListener("change", this._toggleProfileComboBox);
+    btnSubmit.addEventListener("click", this._submitForm.bind(this));
+    btnStopTimer.addEventListener("click", this._renderForm.bind(this));
   }
 
   _expandMain(entries) {
@@ -93,13 +95,37 @@ class App {
     else main.classList.remove("main--expand");
   }
 
-  _formSubmit(e) {
+  _toggleProfileComboBox() {
+    const val = selectProfiles.value;
+    if (val === "") return;
+    if (val === "short") {
+      inputWork.value = 25;
+      inputBreak.value = 5;
+      inputManual.checked = true;
+    }
+    if (val === "long") {
+      inputWork.value = 50;
+      inputBreak.value = 10;
+      inputManual.checked = true;
+    }
+  }
+
+  _submitForm(e) {
     e.preventDefault();
+    // Helper functions
+    const validNumbers = (...inputs) =>
+      inputs.every((ipt) => Number.isFinite(ipt));
+    const allPositive = (...inputs) => inputs.every((ipt) => ipt > 0);
+    // Retrieve data from input fields
+    const workTime = +inputWork.value;
+    const breakTime = +inputBreak.value;
     const type = inputReverse.checked ? "reverse" : "normal";
     const mode = inputManual.checked ? "manual" : "auto";
-    const intervals = [inputWork.value, inputBreak.value].map(
-      (ipt) => ipt * 60
-    );
+    // Validate data
+    if (!validNumbers(workTime, breakTime) || !allPositive(workTime, breakTime))
+      return alert("Inputs must be between 1 and 999");
+    // Process data
+    const intervals = [workTime, breakTime].map((ipt) => ipt * 60);
     const timer = new Timer(type, mode, intervals);
     if (clockTimer) clearInterval(clockTimer);
     clockTimer = timer.updateTimer(timer.work);
@@ -108,12 +134,13 @@ class App {
     this.#mainObserver.observe(main);
   }
 
-  stopClock(e) {
+  _renderForm(e) {
     e.preventDefault();
     if (clockTimer) clearInterval(clockTimer);
     nav.classList.remove("nav--hidden");
     main.classList.remove("main--expand");
     this.#mainObserver.unobserve(main);
+    selectProfiles.value = "";
     labelContainer.textContent = "...";
     labelTimer.textContent = "00:00";
     inputWork.value = inputBreak.value = "";
