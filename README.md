@@ -1,14 +1,16 @@
 # Pomodoro
 
-## Demo Preview
+## Screenshots
 
-![Demo Preview](/assets/images/demo-preview.png)
+![screenshots-0](/assets/images/screenshots-0.png)
+![screenshots-1](/assets/images/screenshots-1.png)
+![screenshots-2](/assets/images/screenshots-2.png)
 
 ## Description
 
-Get productive!
+Get Productive Today, and Make Life Less Chaotic!
 
-Be able to set your own productivity timer they way that suits you!
+With This App YOU Can Be YOUR Own Productivity Ninja and Set YOUR Own Timer They Way YOU Want!
 
 **Features:**
 
@@ -17,10 +19,13 @@ Be able to set your own productivity timer they way that suits you!
 - Modern GUI
 - Reverse-Countdown
 - Auto/Manual Timer
+- **NEW:** Timer Profiles
 
 **TASK-LIST:**
 
-- [ ] Timer Profiles
+- [x] Timer Profiles
+
+**_None at the moment, but feel free to suggest any :)_**
 
 ## Installation
 
