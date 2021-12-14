@@ -4,31 +4,29 @@
 ////// Selecting HTML Elements
 ///////////////////////////////////////////////
 
-// Inputs
-const inputWork = document.querySelector(".form__input--work");
-const inputBreak = document.querySelector(".form__input--break");
-const inputReverse = document.querySelector(".form__input--reverse");
-const inputManual = document.querySelector(".form__input--manual");
-// Buttons
-const btnSubmit = document.querySelector(".form__btn--submit");
-const btnStopTimer = document.querySelector(".btn--stop-timer");
-// Labels
-const labelContainer = document.querySelector(".container__label");
-const labelTimer = document.querySelector(".clock__label--timer");
-const labelCounter = document.querySelector(".clock__label--counter");
 // Parents
 const nav = document.querySelector(".nav");
-const main = document.querySelector(".main");
-const selectProfiles = document.querySelector(".form__select--profiles");
+const contentMain = document.querySelector(".main__content");
+const selectProfiles = document.querySelector(".item__select--profiles");
+// Inputs
+const inputWork = document.querySelector(".item__input--work");
+const inputBreak = document.querySelector(".item__input--break");
+const inputReverse = document.querySelector(".item__input--reverse");
+const inputManual = document.querySelector(".item__input--manual");
+// Buttons
+const btnSubmit = document.querySelector(".form__btn--submit");
+const btnStopTimer = document.querySelector(".container__btn--stop");
+// Labels
+const labelContainer = document.querySelector(".container__label--display");
+const labelTimer = document.querySelector(".item__label--timer");
+const labelCounter = document.querySelector(".item__label--counter");
 
 ////////////////////////////////////////////////
-////// Timer Architecture
+////// Timer Constructor
 ///////////////////////////////////////////////
 
-let clockTimer;
-
 class Timer {
-  counter = 0;
+  #counter = 0;
 
   constructor(type, mode, intervals) {
     this.type = type;
@@ -43,7 +41,7 @@ class Timer {
     const isWork = this.work === +time ? true : false;
     if (isReverse) finishTime = +time;
     startTime = isReverse && isWork ? 0 : +time;
-    const tick = function () {
+    function tick() {
       const min = String(Math.trunc(startTime / 60)).padStart(2, 0);
       const sec = String(Math.trunc(startTime % 60)).padStart(2, 0);
       labelTimer.textContent = `${min}:${sec}`;
@@ -53,18 +51,18 @@ class Timer {
         (isReverse && isWork && startTime === finishTime)
       ) {
         if (isWork) {
-          ++this.counter;
-          labelCounter.textContent = this.counter;
+          ++this.#counter;
+          labelCounter.textContent = this.#counter;
         }
         if (isManual && !isWork) alert(`Are You Ready?`);
-        clearInterval(clockTimer);
+        clearInterval(currTimer);
         labelContainer.textContent = !isWork ? "Work" : "Break";
-        clockTimer = !isWork
+        currTimer = !isWork
           ? this.updateTimer(this.work)
           : this.updateTimer(this.break);
       }
       startTime = isReverse && isWork ? ++startTime : --startTime;
-    };
+    }
     tick();
     const timer = setInterval(tick.bind(this), 1000);
     return timer;
@@ -75,24 +73,42 @@ class Timer {
 ////// App Architecture
 ///////////////////////////////////////////////
 
+let currTimer;
+
 class App {
   #mainObserver;
 
   constructor() {
+    this._init();
     this.#mainObserver = new ResizeObserver(this._expandMain);
+    // Add event handlers
     selectProfiles.addEventListener("change", this._toggleProfileComboBox);
     btnSubmit.addEventListener("click", this._submitForm.bind(this));
     btnStopTimer.addEventListener("click", this._renderForm.bind(this));
   }
 
+  _init() {
+    // Reset form values
+    inputWork.value = inputBreak.value = "";
+    selectProfiles.value = "";
+    // Reset container values
+    labelContainer.textContent = "...";
+    labelTimer.textContent = "00:00";
+    labelCounter.textContent = "0";
+    // Restore app to initial state
+    nav.classList.remove("nav--hidden");
+    contentMain.classList.remove("main__content--expand");
+    this.#mainObserver?.unobserve(contentMain);
+  }
+
   _expandMain(entries) {
     const [entry] = entries;
+    contentMain.classList.remove("main__content--expand");
     if (
-      entry.contentRect.width >= 820 ||
+      entry.contentRect.width >= 815 ||
       window.screen.width === window.innerWidth
     )
-      main.classList.add("main--expand");
-    else main.classList.remove("main--expand");
+      contentMain.classList.add("main__content--expand");
   }
 
   _toggleProfileComboBox() {
@@ -101,11 +117,13 @@ class App {
     if (val === "short") {
       inputWork.value = 25;
       inputBreak.value = 5;
+      inputReverse.checked = false;
       inputManual.checked = true;
     }
     if (val === "long") {
       inputWork.value = 50;
       inputBreak.value = 10;
+      inputReverse.checked = false;
       inputManual.checked = true;
     }
   }
@@ -119,31 +137,25 @@ class App {
     // Retrieve data from input fields
     const workTime = +inputWork.value;
     const breakTime = +inputBreak.value;
-    const type = inputReverse.checked ? "reverse" : "normal";
-    const mode = inputManual.checked ? "manual" : "auto";
+    const type = inputReverse?.checked ?? "normal";
+    const mode = inputManual?.checked ?? "auto";
     // Validate data
     if (!validNumbers(workTime, breakTime) || !allPositive(workTime, breakTime))
       return alert("Inputs must be between 1 and 999");
     // Process data
     const intervals = [workTime, breakTime].map((ipt) => ipt * 60);
     const timer = new Timer(type, mode, intervals);
-    if (clockTimer) clearInterval(clockTimer);
-    clockTimer = timer.updateTimer(timer.work);
+    if (currTimer) clearInterval(currTimer);
+    currTimer = timer.updateTimer(timer.work);
     labelContainer.textContent = "Work";
     nav.classList.add("nav--hidden");
-    this.#mainObserver.observe(main);
+    this.#mainObserver.observe(contentMain);
   }
 
   _renderForm(e) {
     e.preventDefault();
-    if (clockTimer) clearInterval(clockTimer);
-    nav.classList.remove("nav--hidden");
-    main.classList.remove("main--expand");
-    this.#mainObserver.unobserve(main);
-    selectProfiles.value = "";
-    labelContainer.textContent = "...";
-    labelTimer.textContent = "00:00";
-    inputWork.value = inputBreak.value = "";
+    if (currTimer) clearInterval(currTimer);
+    this._init();
   }
 }
 
