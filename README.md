@@ -19,11 +19,9 @@ With This App YOU Can Be YOUR Own Productivity Ninja and Set YOUR Own Timer They
 - Modern GUI
 - Reverse-Countdown
 - Auto/Manual Timer
-- **NEW:** Timer Profiles
+- Timer Profiles
 
 **TASK-LIST:**
-
-- [x] Timer Profiles
 
 **_None at the moment, but feel free to suggest any :)_**
 
