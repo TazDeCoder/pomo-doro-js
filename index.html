@@ -20,53 +20,58 @@
   <body>
     <!-- Navigation Bar -->
     <nav class="nav">
-      <form class="form">
-        <div class="form__item form__item--time">
-          <label class="form__label">Work</label>
+      <form class="nav__form form">
+        <div class="form__item item">
+          <label class="item__label">Work</label>
           <input
-            class="form__input form__input--work"
+            class="item__input item__input--work"
             type="number"
             min="1"
             max="999"
           />
         </div>
-        <div class="form__item">
-          <label class="form__label">Break</label>
+        <div class="form__item item">
+          <label class="item__label">Break</label>
           <input
-            class="form__input form__input--break"
+            class="item__input item__input--break"
             type="number"
             min="1"
             max="999"
           />
         </div>
-        <div class="form__item">
-          <label class="form__label">Reverse</label>
-          <input class="form__input form__input--reverse" type="checkbox" />
+        <div class="form__item item">
+          <label class="item__label">Reverse</label>
+          <input class="item__input item__input--reverse" type="checkbox" />
         </div>
-        <div class="form__item">
-          <label class="form__label">Manual</label>
-          <input class="form__input form__input--manual" type="checkbox" />
+        <div class="form__item item">
+          <label class="item__label">Manual</label>
+          <input class="item__input item__input--manual" type="checkbox" />
         </div>
-        <div class="form__item">
-          <label class="form__label">Profiles</label>
-          <select class="form__select form__select--profiles">
-            <option class="form__option" value="">
-            <option class="form__option" value="short">25/5</>
-            <option class="form__option" value="long">50/10</>
+        <div class="form__item item">
+          <label class="item__label">Profiles</label>
+          <select class="item__select item__select--profiles select">
+            <option class="select__option" value=""></option>
+            <option class="select__option" value="short">25/5</option>
+            <option class="select__option" value="long">50/10</option>
           </select>
         </div>
-        <button class="btn form__btn form__btn--submit">Start Timer <br> ⏳</button>
-      </div>
+        <button class="form__btn form__btn--submit btn">
+          Start Timer <br />
+          ⏳
+        </button>
+      </form>
     </nav>
     <!-- Clock -->
     <main class="main">
-      <div class="container">
-        <p class="container__label">...</p>
-        <div class="clock">
-          <p class="clock__label clock__label--timer">00:00</;>
-          <p class="clock__label clock__label--counter">0</p>
+      <div class="main__content content">
+        <div class="content__container container">
+          <p class="container__label container__label--display"></p>
+          <div class="container__item container__item--clock item">
+            <p class="item__label item__label--timer"></p>
+            <p class="item__label item__label--counter"></p>
+          </div>
+          <button class="container__btn container__btn--stop btn">Stop</button>
         </div>
-        <button class="btn btn--stop-timer">Stop</button>
       </div>
     </main>
   </body>
