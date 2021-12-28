@@ -28,6 +28,7 @@
             type="number"
             min="1"
             max="999"
+            required
           />
         </div>
         <div class="form__item item">
@@ -37,6 +38,7 @@
             type="number"
             min="1"
             max="999"
+            required
           />
         </div>
         <div class="form__item item">
@@ -56,7 +58,7 @@
           </select>
         </div>
         <button class="form__btn form__btn--submit btn">
-          Start Timer <br />
+          <span class="span--bold">Start Timer</span> <br />
           ⏳
         </button>
       </form>
@@ -70,7 +72,9 @@
             <p class="item__label item__label--timer"></p>
             <p class="item__label item__label--counter"></p>
           </div>
-          <button class="container__btn container__btn--stop btn">Stop</button>
+          <button class="container__btn container__btn--stop btn">
+            <span class="span--bold">Stop</span>
+          </button>
         </div>
       </div>
     </main>
