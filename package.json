@@ -1,0 +1,26 @@
+{
+  "name": "pomodoro",
+  "version": "1.0.0",
+  "description": "Pomodoro timer application",
+  "default": "index.html",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html --dist-dir ./dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tarwat-uddin/pomodoro-js.git"
+  },
+  "author": "Tarwat Uddin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tarwat-uddin/pomodoro-js/issues"
+  },
+  "homepage": "https://github.com/tarwat-uddin/pomodoro-js#readme",
+  "devDependencies": {
+    "parcel": "^2.0.1"
+  },
+  "dependencies": {
+    "core-js": "^3.20.1"
+  }
+}

@@ -107,7 +107,8 @@ iframe {
     height: 100%;
   }
   .nav--hidden {
-    transform: translateX(100%);
+    transform: translateY(auto);
+    margin-left: -100%;
   }
   .nav__form {
     flex-direction: column;
