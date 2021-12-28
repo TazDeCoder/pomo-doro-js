@@ -137,7 +137,7 @@ iframe {
   margin: 5px;
   font-size: 1rem;
   background-color: var(--color-tertiary-yellowgreen);
-  border-color: purple;
+  border-color: blueviolet;
 }
 .nav .form__btn:hover {
   background-color: var(--color-tertiary-yellowgreen-hover);
@@ -167,13 +167,14 @@ iframe {
  */
 
 .nav__form .item__label {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
+  font-weight: 400;
   color: white;
 }
 .nav__form .item__input,
 .nav__form .item__select {
   display: block;
-  height: 20px;
+  height: 1.5rem;
   margin: 5px auto;
   font-size: 1rem;
   text-align: center;
@@ -181,7 +182,7 @@ iframe {
   border-radius: 5px;
 }
 .nav__form .item__input[type="checkbox"] {
-  width: 20px;
+  width: 1.5rem;
   cursor: pointer;
 }
 
@@ -304,23 +305,19 @@ iframe {
  *
  */
 
-.container__item .item__label {
+.main .container .item__label {
   font-size: 2.4rem;
   font-weight: 400;
   text-align: center;
   background-color: white;
   border: 2px solid var(--color-secondary-dark);
 }
-.container__item .item__label:hover {
-  background-color: var(--color-secondary-light-hover);
-  cursor: pointer;
-}
-.container__item .item__label--timer {
+.main .container .item__label--timer {
   width: 50%;
   margin: 7rem auto;
   border-radius: 5px;
 }
-.container__item .item__label--counter {
+.main .container .item__label--counter {
   width: 20%;
   padding: 5px;
   margin: -3rem auto;
