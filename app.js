@@ -6,6 +6,7 @@
 
 // Parents
 const nav = document.querySelector(".nav");
+const navForm = document.querySelector(".nav__form");
 const contentMain = document.querySelector(".main__content");
 const selectProfiles = document.querySelector(".item__select--profiles");
 // Inputs
@@ -13,13 +14,12 @@ const inputWork = document.querySelector(".item__input--work");
 const inputBreak = document.querySelector(".item__input--break");
 const inputReverse = document.querySelector(".item__input--reverse");
 const inputManual = document.querySelector(".item__input--manual");
-// Buttons
-const btnSubmit = document.querySelector(".form__btn--submit");
-const btnStopTimer = document.querySelector(".container__btn--stop");
 // Labels
 const labelContainer = document.querySelector(".container__label--display");
 const labelTimer = document.querySelector(".item__label--timer");
 const labelCounter = document.querySelector(".item__label--counter");
+// Buttons
+const btnStop = document.querySelector(".container__btn--stop");
 
 ////////////////////////////////////////////////
 ////// Timer Constructor
@@ -28,19 +28,22 @@ const labelCounter = document.querySelector(".item__label--counter");
 class Timer {
   #counter = 0;
 
-  constructor(type, mode, intervals) {
-    this.type = type;
-    this.mode = mode;
+  constructor(intervals, reverse = false, manual = false) {
+    this.reverse = reverse;
+    this.manual = manual;
     [this.work, this.break] = intervals;
   }
 
-  updateTimer(time) {
+  updateTimer(mode) {
     let finishTime, startTime;
-    const isReverse = this.type === "reverse" ? true : false;
-    const isManual = this.mode === "manual" ? true : false;
-    const isWork = this.work === +time ? true : false;
-    if (isReverse) finishTime = +time;
-    startTime = isReverse && isWork ? 0 : +time;
+    const isReverse = this.reverse;
+    const isManual = this.manual;
+    const isWork = this.work === +mode ? true : false;
+    // Setup clock style
+    if (isReverse) finishTime = +mode;
+    startTime = isReverse && isWork ? 0 : +mode;
+    labelContainer.textContent = !isWork ? "Work" : "Break";
+    // Tick function for clock
     function tick() {
       const min = String(Math.trunc(startTime / 60)).padStart(2, 0);
       const sec = String(Math.trunc(startTime % 60)).padStart(2, 0);
@@ -56,7 +59,6 @@ class Timer {
         }
         if (isManual && !isWork) alert(`Are You Ready?`);
         clearInterval(currTimer);
-        labelContainer.textContent = !isWork ? "Work" : "Break";
         currTimer = !isWork
           ? this.updateTimer(this.work)
           : this.updateTimer(this.break);
@@ -76,18 +78,21 @@ class Timer {
 let currTimer;
 
 class App {
-  #mainObserver;
+  #mainObserver = new ResizeObserver(this._expandMain);
 
   constructor() {
     this._init();
-    this.#mainObserver = new ResizeObserver(this._expandMain);
     // Add event handlers
     selectProfiles.addEventListener("change", this._toggleProfileComboBox);
-    btnSubmit.addEventListener("click", this._submitForm.bind(this));
-    btnStopTimer.addEventListener("click", this._renderForm.bind(this));
+    navForm.addEventListener("submit", this._submitForm.bind(this));
+    btnStop.addEventListener("click", this._init.bind(this));
   }
 
+  /////////////////////////////////////
+  //////////// Handler functions
+
   _init() {
+    if (currTimer) clearInterval(currTimer);
     // Reset form values
     inputWork.value = inputBreak.value = "";
     selectProfiles.value = "";
@@ -98,7 +103,7 @@ class App {
     // Restore app to initial state
     nav.classList.remove("nav--hidden");
     contentMain.classList.remove("main__content--expand");
-    this.#mainObserver?.unobserve(contentMain);
+    this.#mainObserver.unobserve(contentMain);
   }
 
   _expandMain(entries) {
@@ -114,6 +119,7 @@ class App {
   _toggleProfileComboBox() {
     const val = selectProfiles.value;
     if (val === "") return;
+    // Timer profiles
     if (val === "short") {
       inputWork.value = 25;
       inputBreak.value = 5;
@@ -130,32 +136,19 @@ class App {
 
   _submitForm(e) {
     e.preventDefault();
-    // Helper functions
-    const validNumbers = (...inputs) =>
-      inputs.every((ipt) => Number.isFinite(ipt));
-    const allPositive = (...inputs) => inputs.every((ipt) => ipt > 0);
     // Retrieve data from input fields
     const workTime = +inputWork.value;
     const breakTime = +inputBreak.value;
-    const type = inputReverse?.checked ?? "normal";
-    const mode = inputManual?.checked ?? "auto";
-    // Validate data
-    if (!validNumbers(workTime, breakTime) || !allPositive(workTime, breakTime))
-      return alert("Inputs must be between 1 and 999");
+    const reverse = inputReverse?.checked;
+    const manual = inputManual?.checked;
     // Process data
     const intervals = [workTime, breakTime].map((ipt) => ipt * 60);
-    const timer = new Timer(type, mode, intervals);
+    const timer = new Timer(intervals, reverse, manual);
     if (currTimer) clearInterval(currTimer);
     currTimer = timer.updateTimer(timer.work);
     labelContainer.textContent = "Work";
     nav.classList.add("nav--hidden");
     this.#mainObserver.observe(contentMain);
-  }
-
-  _renderForm(e) {
-    e.preventDefault();
-    if (currTimer) clearInterval(currTimer);
-    this._init();
   }
 }
 
