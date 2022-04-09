@@ -1,4 +1,4 @@
-# Pomodoro
+# Pomodoro JS
 
 ## Screenshots
 
@@ -8,20 +8,20 @@
 
 ## Description
 
-Get Productive Today, and Make Life Less Chaotic!
-
-With This App YOU Can Be YOUR Own Productivity Ninja and Set YOUR Own Timer They Way YOU Want!
+A JavaScript application that allows you to set your own pomodoro-style timers they you want to them to be
 
 **Features:**
 
-- Modern GUI
+- Modern User Interface
 - Intuitive Design
-- Reverse-Countdown
+- Reverse-Countdown Timer
 - Timer Profiles
 
-**TASK-LIST:**
+## What I've Learnt
 
-**_None at the moment, but feel free to suggest any :)_**
++ Working with forms 
++ Handling user-submission data
++ Creating and using timer objects
 
 ## Installation
 
