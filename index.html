@@ -4,16 +4,30 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="./src/stylesheets/reset.css" />
-    <link rel="stylesheet" type="text/css" href="./src/stylesheets/style.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="./public/stylesheets/reset.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="./public/stylesheets/style.css"
+    />
+    <link
+      href="./node_modules/@fortawesome/fontawesome-free/css/brands.css"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/x-icon" href="./public/images/favicon.ico" />
     <script defer type="module" src="./src/app.js"></script>
-    <title>Pomodoro</title>
+    <title>Pomodoro JS</title>
   </head>
   <body>
     <!-- Navigation Bar -->
-    <nav class="nav">
-      <form class="nav__form form">
-        <div class="form__item item">
+    <header class="head">
+      <!-- Timer Form -->
+      <form class="nav__form">
+        <div class="nav__form-item">
           <label class="item__label">Work</label>
           <input
             class="item__input item__input--work"
@@ -23,7 +37,7 @@
             required
           />
         </div>
-        <div class="form__item item">
+        <div class="nav__form-item">
           <label class="item__label">Break</label>
           <input
             class="item__input item__input--break"
@@ -33,15 +47,15 @@
             required
           />
         </div>
-        <div class="form__item item">
+        <div class="nav__form-item">
           <label class="item__label">Reverse</label>
           <input class="item__input item__input--reverse" type="checkbox" />
         </div>
-        <div class="form__item item">
+        <div class="nav__form-item">
           <label class="item__label">Manual</label>
           <input class="item__input item__input--manual" type="checkbox" />
         </div>
-        <div class="form__item item">
+        <div class="nav__form-item">
           <label class="item__label">Profiles</label>
           <select class="item__select item__select--profiles select">
             <option class="select__option" value=""></option>
@@ -49,26 +63,45 @@
             <option class="select__option" value="long">50/10</option>
           </select>
         </div>
-        <button class="form__btn form__btn--submit btn">
+        <button class="btn nav__form-btn nav__form-btn--submit">
           <span class="span--bold">Start Timer</span> <br />
           ⏳
         </button>
       </form>
-    </nav>
-    <!-- Clock -->
+    </header>
+
     <main class="main">
-      <div class="main__content content">
-        <div class="content__container container">
-          <p class="container__label container__label--display"></p>
-          <div class="container__item container__item--clock item">
-            <p class="item__label item__label--timer"></p>
-            <p class="item__label item__label--counter"></p>
-          </div>
-          <button class="container__btn container__btn--stop btn">
-            <span class="span--bold">Stop</span>
-          </button>
+      <div class="container">
+        <p class="container__label container__label--display"></p>
+        <!-- Clock Display -->
+        <div class="container__hero container__hero--clock">
+          <p class="clock__label clock__label--timer"></p>
+          <p class="clock__label clock__label--counter"></p>
         </div>
+        <button class="btn container__btn container__btn--stop">
+          <span class="span--bold">Stop</span>
+        </button>
       </div>
     </main>
+
+    <footer class="foot">
+      <!-- Links to socials -->
+      <nav class="foot__content foot__content--socials nav">
+        <div class="foot__content--socials__item">
+          <a
+            href="https://github.com/tarwat-uddin/pomodoro-js"
+            target="_blank"
+            rel="noopener"
+          >
+            <i class="fa-brands fa-github" />
+          </a>
+        </div>
+        <div class="foot__content--socials__item">
+          <a href="https://dev.to/tarwatuddin" target="_blank" rel="noopener">
+            <i class="fa-brands fa-dev" />
+          </a>
+        </div>
+      </nav>
+    </footer>
   </body>
 </html>

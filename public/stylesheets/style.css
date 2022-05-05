@@ -5,15 +5,11 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-html,
-body {
-  width: 100%;
-  height: 100%;
-}
 html {
   font-size: 16px;
 }
 body {
+  min-height: 100vh;
   background-color: #1a1a35;
 }
 nav,
@@ -51,7 +47,7 @@ iframe {
 
 /* General elements */
 
-/* Buttons */
+/* Button */
 .btn {
   color: white;
   cursor: pointer;
@@ -69,12 +65,12 @@ iframe {
 
 /* 
  *
- * Nav
+ * Head
  *
  *
  */
 
-.nav {
+.head {
   position: absolute;
   top: 0;
   right: 0;
@@ -83,12 +79,12 @@ iframe {
   background-color: var(--color-tertiary-darkpurple);
   transition: opacity 700ms;
 }
-.nav--hidden {
+.head--hidden {
   opacity: 0;
   transition: all 3s;
   transform: translateY(-100%);
 }
-.nav__form {
+.head .nav__form {
   display: flex;
   flex-wrap: wrap;
   align-content: center;
@@ -102,15 +98,16 @@ iframe {
 }
 
 @media only screen and (min-width: 820px) {
-  .nav {
+  .head {
+    position: fixed;
     width: 12rem;
-    height: 100%;
+    height: 100vh;
   }
-  .nav--hidden {
+  .head--hidden {
     transform: translateY(auto);
     margin-left: -100%;
   }
-  .nav__form {
+  .head .nav__form {
     flex-direction: column;
     flex-wrap: no-wrap;
     justify-content: center;
@@ -122,17 +119,17 @@ iframe {
 
 /* 
  *
- * Nav
+ * Head
  *
- * * * Form
+ * * * Nav
  *
  *
  */
 
-.nav .form__item {
+.head .nav__form-item {
   margin: 2px;
 }
-.nav .form__btn {
+.head .nav__form-btn {
   width: 30%;
   padding: 5px;
   margin: 5px;
@@ -140,15 +137,15 @@ iframe {
   background-color: var(--color-tertiary-yellowgreen);
   border-color: blueviolet;
 }
-.nav .form__btn:hover {
+.head .nav__form-btn:hover {
   background-color: var(--color-tertiary-yellowgreen-hover);
 }
 
 @media only screen and (min-width: 820px) {
-  .nav .form__item {
+  .head .nav__form-item {
     width: 100%;
   }
-  .nav .form__btn {
+  .head .nav__form-btn {
     width: 70%;
     padding: 1rem;
     margin: 12px;
@@ -158,22 +155,22 @@ iframe {
 
 /* 
  *
- * Nav
+ * Head
  *
- * * * Form
+ * * * Nav
  *
  * * * * * Item
  *
  *
  */
 
-.nav__form .item__label {
+.head .nav__form-item .item__label {
   font-size: 1.3rem;
   font-weight: 400;
   color: white;
 }
-.nav__form .item__input,
-.nav__form .item__select {
+.head .nav__form-item .item__input,
+.head .nav__form-item .item__select {
   display: block;
   height: 1.5rem;
   margin: 5px auto;
@@ -182,16 +179,16 @@ iframe {
   border: 1px solid black;
   border-radius: 5px;
 }
-.nav__form .item__input[type="checkbox"] {
+.head .nav__form-item .item__input[type="checkbox"] {
   width: 1.5rem;
   cursor: pointer;
 }
 
 @media only screen and (min-width: 820px) {
-  .nav__form .item__label {
+  .head .nav__form-item .item__label {
     font-size: 1.7rem;
   }
-  .nav__form .item__input {
+  .head .nav__form-item .item__input {
     width: 70%;
     padding: 12px;
     margin: 1rem auto;
@@ -206,34 +203,13 @@ iframe {
  */
 
 .main {
-  width: 100%;
-  height: 100%;
-}
-.main__content {
   width: min(100%, 815px);
   margin-top: 10rem;
 }
-.main__content--expand {
+.main--expand {
   transform: scale(120%, 110%) translateY(1rem);
   transition: all 3s;
 }
-
-@media only screen and (min-width: 820px) {
-  .main__content {
-    width: min(90%, 815px);
-    margin: 2.5rem auto;
-  }
-}
-
-/* 
- *
- * Main
- *
- * * * Content
- *
- *
- */
-
 .main .content__container {
   display: flex;
   flex-direction: column;
@@ -247,6 +223,10 @@ iframe {
 }
 
 @media only screen and (min-width: 820px) {
+  .main {
+    width: min(90%, 815px);
+    margin: 2.5rem auto;
+  }
   .main .container__container {
     min-width: 50rem;
     width: 70%;
@@ -265,7 +245,7 @@ iframe {
  *
  */
 
-.main__content .container__item--clock {
+.main .container__hero--clock {
   width: 18.5rem;
   height: 18rem;
   margin: 50px auto;
@@ -273,7 +253,7 @@ iframe {
   border: 3px solid var(--color-secondary-dark);
   border-radius: 50%;
 }
-.main__content .container__label {
+.main .container__label--display {
   max-width: 14rem;
   width: 90%;
   padding: 7px;
@@ -285,7 +265,7 @@ iframe {
   border: 3px solid var(--color-secondary-dark);
   border-radius: 3px;
 }
-.main__content .container__btn--stop {
+.main .container__btn--stop {
   display: block;
   width: 30%;
   padding: 0.5rem;
@@ -301,26 +281,55 @@ iframe {
  *
  * * * * * Container
  *
- * * * * * * * Item
+ * * * * * * * Clock
  *
  *
  */
 
-.main .container .item__label {
+.main .container .clock__label {
   font-size: 2.4rem;
   font-weight: 400;
   text-align: center;
   background-color: white;
   border: 2px solid var(--color-secondary-dark);
 }
-.main .container .item__label--timer {
+.main .container .clock__label--timer {
   width: 50%;
   margin: 7rem auto;
   border-radius: 5px;
 }
-.main .container .item__label--counter {
+.main .container .clock__label--counter {
   width: 20%;
   padding: 5px;
   margin: -3rem auto;
   border-radius: 50%;
+}
+
+/* 
+ *
+ * Foot
+ *
+ *
+ */
+
+.foot {
+  clear: both;
+  width: 100%;
+  margin: 1rem 0;
+  text-align: center;
+}
+.foot .foot__content--socials {
+  display: flex;
+  justify-content: center;
+  margin: 1rem auto;
+}
+.foot .foot__content--socials__item {
+  display: inline-block;
+  margin: 0 0.5rem;
+  padding: 10px 0;
+}
+.foot .foot__content--socials__item a {
+  text-decoration: none;
+  color: white;
+  font-size: 3rem;
 }

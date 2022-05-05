@@ -7,9 +7,9 @@ import "core-js/stable";
 ///////////////////////////////////////////////
 
 // Parents
-const nav = document.querySelector(".nav");
+const header = document.querySelector(".head");
 const navForm = document.querySelector(".nav__form");
-const contentMain = document.querySelector(".main__content");
+const main = document.querySelector(".main");
 const selectProfiles = document.querySelector(".item__select--profiles");
 // Inputs
 const inputWork = document.querySelector(".item__input--work");
@@ -18,8 +18,8 @@ const inputReverse = document.querySelector(".item__input--reverse");
 const inputManual = document.querySelector(".item__input--manual");
 // Labels
 const labelContainer = document.querySelector(".container__label--display");
-const labelTimer = document.querySelector(".item__label--timer");
-const labelCounter = document.querySelector(".item__label--counter");
+const labelTimer = document.querySelector(".clock__label--timer");
+const labelCounter = document.querySelector(".clock__label--counter");
 // Buttons
 const btnStop = document.querySelector(".container__btn--stop");
 
@@ -103,19 +103,19 @@ class App {
     labelTimer.textContent = "00:00";
     labelCounter.textContent = "0";
     // Restore app to initial state
-    nav.classList.remove("nav--hidden");
-    contentMain.classList.remove("main__content--expand");
-    this.#mainObserver.unobserve(contentMain);
+    header.classList.remove("head--hidden");
+    main.classList.remove("main--expand");
+    this.#mainObserver.unobserve(main);
   }
 
   _expandMain(entries) {
     const [entry] = entries;
-    contentMain.classList.remove("main__content--expand");
+    main.classList.remove("main--expand");
     if (
       entry.contentRect.width >= 815 ||
       window.screen.width === window.innerWidth
     )
-      contentMain.classList.add("main__content--expand");
+      main.classList.add("main--expand");
   }
 
   _toggleProfileComboBox() {
@@ -149,8 +149,8 @@ class App {
     if (currTimer) clearInterval(currTimer);
     currTimer = timer.updateTimer(timer.work);
     labelContainer.textContent = "Work";
-    nav.classList.add("nav--hidden");
-    this.#mainObserver.observe(contentMain);
+    header.classList.add("head--hidden");
+    this.#mainObserver.observe(main);
   }
 }
 
