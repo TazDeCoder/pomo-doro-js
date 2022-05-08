@@ -2,9 +2,8 @@
 
 ## Screenshots
 
-![screenshots-0](/screenshots/screenshots-0.png)
-![screenshots-1](/screenshots/screenshots-1.png)
-![screenshots-2](/screenshots/screenshots-2.png)
+<img src="./public/images/screenshots/screenshots-1.png" alt="desktop-screenshot" width="65%"></img>
+<img src="./public/images/screenshots/screenshots-2.png" alt="mobile-screenshot" width="30%"></img>
 
 ## Description
 
@@ -19,9 +18,9 @@ A JavaScript application that allows you to set your own pomodoro-style timers t
 
 ## What I've Learnt
 
-+ Working with forms 
-+ Handling user-submission data
-+ Creating and using timer objects
+- Working with forms
+- Handling user-submission data
+- Creating and using timer objects
 
 ## Installation
 
@@ -29,7 +28,7 @@ To use this project, first clone the repo on your device using the command below
 
 `git init`
 
-`https://github.com/tarwat-uddin/pomodoro-js.git`
+`https://github.com/tarwat-uddin/pomo-doro-js.git`
 
 ## License
 
